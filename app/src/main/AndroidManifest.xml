@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="aukde.food.administrador">
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name="aukde.food.administrador.paquetes.Utils.ApplicationCronometro"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:grantUriPermissions="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Pedidos.DetalleSolicitudProveedor"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Pedidos.ListaSolicitudProductos"
+            android:parentActivityName="aukde.food.administrador.paquetes.Menus.MenuAdmin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Pedidos.SolicitarProducto"
+            android:parentActivityName="aukde.food.administrador.paquetes.Menus.MenuAdmin" />
+        <activity android:name="aukde.food.administrador.paquetes.Reportes.GraficoGanancias" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Pedidos.ListaSolicitudProveedor"
+            android:parentActivityName="aukde.food.administrador.paquetes.Menus.MenuAdmin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Reportes.ReportePedidoPorLlamada"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="aukde.food.administrador.paquetes.Menus.Perfiles.PerfilAdmin"
+            android:parentActivityName="aukde.food.administrador.paquetes.Menus.MenuAdmin"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name="aukde.food.administrador.paquetes.Servicios.JobServiceMonitoreo"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name="aukde.food.administrador.paquetes.Servicios.ForegroundServiceCronometro"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name="aukde.food.administrador.paquetes.Actividades.Pedidos.AsignarRepartidor" />
+        <activity android:name="aukde.food.administrador.paquetes.Actividades.Pedidos.EditarPedido" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name="aukde.food.administrador.paquetes.Mapas.MapaClientePorLlamada"
+            android:label="@string/title_activity_mapa_cliente_por_llamada" />
+        <activity android:name="aukde.food.administrador.paquetes.Mapas.MonitoreoRepartidor" />
+        <activity android:name="aukde.food.administrador.paquetes.Mapas.MapaProveedores" />
+        <activity android:name="aukde.food.administrador.paquetes.Actividades.Notificacion" />
+
+        <receiver
+            android:name="aukde.food.administrador.paquetes.Receptor.AcceptReceiver"
+            android:enabled="true" />
+        <receiver
+            android:name="aukde.food.administrador.paquetes.Receptor.CancelReceiver"
+            android:enabled="true" />
+        <receiver
+            android:name="aukde.food.administrador.paquetes.Receptor.NetworkReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name="aukde.food.administrador.paquetes.Receptor.GpsReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.location.GPS_ENABLED_CHANGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="aukde.food.administrador.paquetes.Servicios.MyFirebaseMessagingClient">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Pedidos.DetallePedido"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Pedidos.ListaDePedidos"
+            android:parentActivityName="aukde.food.administrador.paquetes.Menus.MenuAdmin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Pedidos.RealizarPedido"
+            android:parentActivityName="aukde.food.administrador.paquetes.Menus.MenuAdmin" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Menus.MenuAdmin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Menus.ListaUsuarios.ListaAdministrador"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Menus.ListaUsuarios.ListaAukdeliver"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Menus.ListaUsuarios.ListaProveedor"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Menus.ListaUsuarios.DetalleAdministrador"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Menus.ListaUsuarios.DetalleAukdeliver"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Menus.ListaUsuarios.DetalleProveedor"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Registros.RegistroProveedor"
+            android:parentActivityName="aukde.food.administrador.paquetes.Actividades.Registros.MenuRegistros" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Registros.RegistroAukdeliver"
+            android:parentActivityName="aukde.food.administrador.paquetes.Actividades.Registros.MenuRegistros" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Registros.MenuRegistros"
+            android:parentActivityName="aukde.food.administrador.paquetes.Actividades.Logins.LoginAdmin" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Registros.RegistroAdmin"
+            android:parentActivityName="aukde.food.administrador.paquetes.Actividades.Registros.MenuRegistros" />
+
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Logins.RecuperarAdmin"
+            android:parentActivityName="aukde.food.administrador.paquetes.Actividades.Logins.LoginAdmin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Usuarios.DetalleAdministrador"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Usuarios.DetalleAukdeliver"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Usuarios.DetalleProveedor"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Usuarios.EditarAdministrador"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Usuarios.EditarAukdeliver"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Usuarios.EditarProveedor"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="aukde.food.administrador.paquetes.Actividades.Logins.LoginAdmin"
+            android:screenOrientation="portrait"
+            android:theme="@style/splashScreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notificacion" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+    </application>
+
+</manifest>

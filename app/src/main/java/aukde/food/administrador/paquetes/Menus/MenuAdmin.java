@@ -51,8 +51,10 @@ import aukde.food.administrador.paquetes.Actividades.Logins.LoginAdmin;
 import aukde.food.administrador.paquetes.Actividades.Pedidos.ListaDePedidos;
 import aukde.food.administrador.paquetes.Actividades.Pedidos.ListaSolicitudProductos;
 import aukde.food.administrador.paquetes.Actividades.Pedidos.ListaSolicitudProveedor;
+import aukde.food.administrador.paquetes.Actividades.Pedidos.OrderListWoocommerce;
 import aukde.food.administrador.paquetes.Actividades.Pedidos.RealizarPedido;
 import aukde.food.administrador.paquetes.Actividades.Pedidos.SolicitarProducto;
+import aukde.food.administrador.paquetes.Actividades.Pedidos.WooOrders;
 import aukde.food.administrador.paquetes.Actividades.Registros.MenuRegistros;
 import aukde.food.administrador.paquetes.Mapas.MapaProveedores;
 import aukde.food.administrador.paquetes.Mapas.MonitoreoRepartidor;
@@ -78,7 +80,7 @@ public class MenuAdmin extends AppCompatActivity implements PopupMenu.OnMenuItem
     SharedPreferences mSharedPreference;
     private CardView btnHacerPedido , btnRegistrarUsuarios , btnListaPedidos
             , btnMapaRepartidores , btnPerfilX , btnMapProveedor , btnFinanza , btnListaSolicitudes,
-            btnSolicitudDeProducto , mBtnListaSolicitudProucto , mBtnConfiguraciones;
+            btnSolicitudDeProducto , mBtnListaSolicitudProucto , btnPedidos;
     private TextView Txtnombres , Txtapellidos;
     private ShimmerFrameLayout shimmerFrameLayout;
     private LinearLayout LinearShimmer;
@@ -122,6 +124,7 @@ public class MenuAdmin extends AppCompatActivity implements PopupMenu.OnMenuItem
         btnListaSolicitudes = findViewById(R.id.btnListaSolicitudesAdmin);
         btnSolicitudDeProducto = findViewById(R.id.btnSolicitudProductoAdmin);
         mBtnListaSolicitudProucto = findViewById(R.id.btnListaSolicitudProducto);
+        btnPedidos = findViewById(R.id.btnPedidos);
         btnPerfilX = findViewById(R.id.btnPerfil);
         Txtnombres = findViewById(R.id.txtNombres);
         Txtapellidos = findViewById(R.id.txtApellidos);
@@ -244,6 +247,13 @@ public class MenuAdmin extends AppCompatActivity implements PopupMenu.OnMenuItem
                 mDialog.setMessage("Cargando...");
                 startActivity(new Intent(MenuAdmin.this, ListaSolicitudProductos.class));
                 finish();
+            }
+        });
+
+        btnPedidos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MenuAdmin.this, OrderListWoocommerce.class));
             }
         });
 

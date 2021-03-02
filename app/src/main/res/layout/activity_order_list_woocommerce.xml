@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".paquetes.Actividades.Pedidos.OrderListWoocommerce">
+
+    <include layout="@layout/toolbar2"/>
+
+    <androidx.appcompat.widget.SearchView
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:layout_width="match_parent"
+        android:id="@+id/searchOrders"
+        app:queryHint="Buscar n° de pedido.."
+        app:iconifiedByDefault="false"
+        android:textStyle="bold"
+        android:fontFamily="@font/futura"
+        android:layout_margin="10dp"
+        android:layout_height="?attr/actionBarSize"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerviewOrders"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+
+
+</LinearLayout>

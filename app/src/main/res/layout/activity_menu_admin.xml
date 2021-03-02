@@ -503,7 +503,7 @@
                 android:clickable="true"
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
-                android:id="@+id/btnConfiguraciones"
+                android:id="@+id/btnPedidos"
                 android:layout_margin="12dp"
                 >
 
@@ -512,20 +512,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:background="#E5F1F1"
+                    android:background="#F1FEE4"
                     android:padding="16dp">
 
                     <Button
                         android:layout_width="80dp"
                         android:gravity="center"
                         android:clickable="false"
-                        android:background="@drawable/btn_configuraciones"
+                        android:background="@drawable/aukdeicon"
                         android:layout_height="80dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_marginBottom="12dp"
-                        android:text="Configuración"
+                        android:text="Pedidos"
                         android:textSize="16sp"
                         android:fontFamily="@font/futura"
                         android:textColor="#000000"

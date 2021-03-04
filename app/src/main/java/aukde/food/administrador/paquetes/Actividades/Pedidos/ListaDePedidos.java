@@ -118,9 +118,7 @@ public class ListaDePedidos extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        NavUtils.navigateUpFromSameTask(this);/*
-        startActivity(new Intent(ListaDePedidos.this, MenuAdmin.class));
-        finish(); */
+        NavUtils.navigateUpFromSameTask(this);
     }
 
     @Override

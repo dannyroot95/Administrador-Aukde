@@ -4,27 +4,21 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.firebase.database.DatabaseReference;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
 import aukde.food.administrador.R;
-import aukde.food.administrador.paquetes.Adaptadores.AdapterPedidoPorLlamada;
 import aukde.food.administrador.paquetes.Adaptadores.AdapterWoocommerce;
 import aukde.food.administrador.paquetes.Inclusiones.MiToolbar;
-import aukde.food.administrador.paquetes.Modelos.PedidoLlamada;
 import aukde.food.administrador.paquetes.ModelsWoocommerce.Woocommerce;
 import aukde.food.administrador.paquetes.Retrofit.WoocommerceAPI;
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,6 +34,7 @@ public class OrderListWoocommerce extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     SearchView searchViewOrders;
     WoocommerceAPI api;
+    private ProgressDialog mDialogActualizeData;
 
 
     @Override
@@ -48,6 +43,12 @@ public class OrderListWoocommerce extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list_woocommerce);
         MiToolbar.Mostrar(this,"Pedidos de productos",true);
+
+        mDialogActualizeData = new ProgressDialog(this,R.style.MyAlertDialogData);
+        mDialogActualizeData.setCancelable(false);
+        mDialogActualizeData.show();
+        mDialogActualizeData.setContentView(R.layout.dialog_data);
+        mDialogActualizeData.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         listItems = new ArrayList<>();
         adapterOrdersWoocommerce = new AdapterWoocommerce(listItems);
@@ -72,7 +73,8 @@ public class OrderListWoocommerce extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Woocommerce>> call, Response<List<Woocommerce>> response) {
                 if(!response.isSuccessful()){
-                    Toast.makeText(OrderListWoocommerce.this,"Error : "+response.code(), Toast.LENGTH_SHORT).show();
+                    Toasty.error(OrderListWoocommerce.this, "Error : " + response.code(), Toast.LENGTH_SHORT).show();
+                    mDialogActualizeData.dismiss();
                     return;
                 }
                 List<Woocommerce> woocommerce = response.body();
@@ -80,6 +82,7 @@ public class OrderListWoocommerce extends AppCompatActivity {
                     listItems.add(woo);
                 }
                 adapterOrdersWoocommerce.notifyDataSetChanged();
+                mDialogActualizeData.dismiss();
             }
 
             @Override
@@ -115,6 +118,11 @@ public class OrderListWoocommerce extends AppCompatActivity {
         }
         AdapterWoocommerce adapter = new AdapterWoocommerce(list);
         recyclerViewOrders.setAdapter(adapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        NavUtils.navigateUpFromSameTask(this);
     }
 
 }

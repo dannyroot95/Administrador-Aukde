@@ -1,6 +1,8 @@
 package aukde.food.administrador.paquetes.ModelsWoocommerce;
 
-public class LineItems {
+import java.io.Serializable;
+
+public class LineItems implements Serializable {
 
 
 	private int quantity;

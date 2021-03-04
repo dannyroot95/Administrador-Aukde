@@ -17,11 +17,14 @@ public class Woocommerce implements Serializable {
     private Billing billing;
 
     @SerializedName("line_items")
-    public  List<LineItems> line_items;
+    public List<LineItems> line_items;
 
-    public Woocommerce(Integer id, String date_created, String status, String total,
-                       String customer_note, String payment_method_title,
-                       Billing billing, List<LineItems> line_items) {
+    @SerializedName("meta_data")
+    public List<MetaDataItem> meta_data;
+
+    public Woocommerce(Integer id, String date_created, String status, String total, String customer_note,
+                       String payment_method_title, Billing billing, List<LineItems> line_items,
+                       List<MetaDataItem> meta_data) {
         this.id = id;
         this.date_created = date_created;
         this.status = status;
@@ -30,6 +33,7 @@ public class Woocommerce implements Serializable {
         this.payment_method_title = payment_method_title;
         this.billing = billing;
         this.line_items = line_items;
+        this.meta_data = meta_data;
     }
 
     public Integer getId() {
@@ -62,5 +66,9 @@ public class Woocommerce implements Serializable {
 
     public List<LineItems> getLine_items() {
         return line_items;
+    }
+
+    public List<MetaDataItem> getMeta_data() {
+        return meta_data;
     }
 }

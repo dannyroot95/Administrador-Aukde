@@ -59,6 +59,8 @@ public class WooOrders extends AppCompatActivity {
                 List<Woocommerce> woocommerce = response.body();
                 for (Woocommerce woo : woocommerce){
                     String content = "";
+                    String lat = "";
+                    String lon = "";
                     content += "ID de Pedido : "+woo.getId()+"\n";
                     content += "Fecha: "+woo.getDate_created()+"\n";
                     content += "Estado : "+woo.getStatus()+"\n";
@@ -71,8 +73,19 @@ public class WooOrders extends AppCompatActivity {
                     content += "Email : "+woo.getBilling().getEmail()+"\n";
 
                     for (int i = 0 ; i<woo.getLine_items().size() ; i++){
-                        content += "Producto "+i +" : "+woo.getLine_items().get(i).getName().toString()+"\n";
+                        content += "Producto "+i +" : "+woo.getLine_items().get(i).getName()+"\n";
                     }
+
+                    for (int j = 0 ; j<woo.getMeta_data().size() ; j++){
+                        if (woo.getMeta_data().get(j).getKey().equals("billing_lat")){
+                            content += "latitud : "+woo.getMeta_data().get(j).getValue()+"\n";
+                        }
+                        if (woo.getMeta_data().get(j).getKey().equals("billing_long")){
+                            content += "longitud : "+woo.getMeta_data().get(j).getValue()+"\n";
+                        }
+
+                    }
+
                     content += ""+"\n";
                     txtAPI.append(content);
                 }

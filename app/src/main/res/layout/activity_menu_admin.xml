@@ -6,18 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#fff"
+    android:background="@drawable/colornegrogradient"
     tools:context=".paquetes.Menus.MenuAdmin">
 
     <LinearLayout
         android:orientation="vertical"
+        android:background="@drawable/fondo"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:background="@drawable/adminback"
             android:layout_height="100dp">
 
         <RelativeLayout
@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="22sp"
                 android:id="@+id/txtEmail"
+                android:drawableLeft="@drawable/ic_user"
                 android:layout_marginTop="6dp"
                 android:textStyle="bold"
                 android:fontFamily="@font/futura"
@@ -88,8 +89,7 @@
                 android:background="@drawable/ic_admin"
                 android:foreground="@drawable/selecion"
                 android:layout_alignParentRight="true"
-                android:layout_width="62dp"
-                />
+                android:layout_width="62dp"/>
 
         </RelativeLayout>
         </LinearLayout>
@@ -99,7 +99,7 @@
     android:layout_height="wrap_content">
 
         <GridLayout
-            android:columnCount="2"
+            android:columnCount="1"
             android:columnOrderPreserved="false"
             android:rowCount="3"
             android:alignmentMode="alignMargins"
@@ -107,12 +107,13 @@
             android:layout_height="wrap_content">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="120dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 android:foreground="@drawable/itemback"
                 android:clickable="true"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardElevation="6dp"
                 android:id="@+id/btnPerfil"
                 app:cardCornerRadius="12dp"
@@ -120,28 +121,27 @@
                 >
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:background="#E4FFEF"
-                    android:padding="16dp">
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:layout_gravity="center">
 
                     <Button
                         android:layout_width="80dp"
                         android:gravity="center"
                         android:clickable="false"
-                        android:background="@drawable/btn_user"
+                        android:background="@drawable/user1"
                         android:layout_height="80dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_marginBottom="12dp"
                         android:text="Mi Perfil"
                         android:fontFamily="@font/futura"
                         android:textSize="16sp"
-                        android:textColor="#000000"
-                        android:layout_height="wrap_content"/>
+                        android:gravity="center"
+                        android:textColor="#fff"
+                        android:layout_height="match_parent"/>
 
                 </LinearLayout>
 
@@ -156,40 +156,39 @@
                 android:clickable="true"
                 android:id="@+id/btnHacerPedido"
                 app:cardElevation="6dp"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="12dp"
                 android:layout_margin="12dp"
                 >
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:background="#F9F9F9"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:padding="16dp">
+                    android:layout_height="wrap_content"
+                    android:gravity="left">
 
                     <RelativeLayout
-                        android:layout_width="80dp"
+                        android:layout_width="wrap_content"
                         android:gravity="center"
-                        android:layout_height="80dp">
+                        android:layout_height="wrap_content">
 
                         <Button
                             android:layout_width="80dp"
                             android:gravity="center"
                             android:clickable="false"
-                            android:background="@drawable/btn_pedido"
+                            android:background="@drawable/ficha1"
                             android:layout_height="80dp"/>
 
                     </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_marginBottom="12dp"
                         android:text="Hacer Pedido"
                         android:textSize="16sp"
                         android:fontFamily="@font/futura"
-                        android:textColor="#000000"
-                        android:layout_height="wrap_content"/>
+                        android:textColor="#fff"
+                        android:gravity="center"
+                        android:layout_height="match_parent"/>
 
                 </LinearLayout>
 
@@ -205,34 +204,33 @@
                 android:foreground="@drawable/itemback"
                 android:clickable="true"
                 app:cardElevation="6dp"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="12dp"
                 android:id="@+id/botnListaDePedidos"
                 android:layout_margin="12dp">
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:background="#FFECE3"
-                    android:padding="16dp">
+                    android:gravity="left">
 
                     <Button
                         android:layout_width="80dp"
                         android:gravity="center"
                         android:clickable="false"
-                        android:background="@drawable/btn_lista_pedidos"
+                        android:background="@drawable/lista1"
                         android:layout_height="80dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="Lista\nde Pedidos"
+                        android:text="Lista de Pedidos"
                         android:textSize="16sp"
+                        android:gravity="center"
                         android:textAlignment="center"
-                        android:textColor="#000000"
+                        android:textColor="#fff"
                         android:fontFamily="@font/futura"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="match_parent"/>
 
                 </LinearLayout>
 
@@ -245,6 +243,7 @@
                 android:layout_rowWeight="1"
                 android:foreground="@drawable/itemback"
                 android:clickable="true"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardElevation="6dp"
                 android:id="@+id/btnRegUsers"
                 app:cardCornerRadius="12dp"
@@ -252,12 +251,10 @@
                 >
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:background="#FFE3F6"
-                    android:padding="16dp">
+                    android:gravity="left">
 
                     <RelativeLayout
                         android:layout_width="80dp"
@@ -268,20 +265,20 @@
                             android:layout_width="80dp"
                             android:gravity="center"
                             android:clickable="false"
-                            android:background="@drawable/btn_reg_users"
+                            android:background="@drawable/registrousers1"
                             android:layout_height="80dp"/>
 
                     </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_marginBottom="12dp"
                         android:text="Registro\nde Usuarios"
                         android:textSize="16sp"
+                        android:gravity="center"
                         android:textAlignment="center"
-                        android:textColor="#000000"
+                        android:textColor="#fff"
                         android:fontFamily="@font/futura"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="match_parent"/>
 
                 </LinearLayout>
 
@@ -295,34 +292,33 @@
                 android:foreground="@drawable/itemback"
                 android:clickable="true"
                 app:cardElevation="6dp"
+                app:cardBackgroundColor="@android:color/transparent"
                 android:id="@+id/btnMonitoreoRepartidor"
                 app:cardCornerRadius="12dp"
                 android:layout_margin="12dp"
                 >
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:background="#FFFAF1"
-                    android:padding="16dp">
+                    android:gravity="left">
 
                     <Button
                         android:layout_width="80dp"
                         android:clickable="false"
                         android:gravity="center"
-                        android:background="@drawable/btn_monitoreo"
+                        android:background="@drawable/repartidoricon2"
                         android:layout_height="80dp"/>
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_marginBottom="12dp"
                         android:text="Monitoreo"
                         android:textSize="16sp"
                         android:textAlignment="center"
-                        android:textColor="#000000"
+                        android:textColor="#fff"
+                        android:gravity="center"
                         android:fontFamily="@font/futura"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="match_parent"/>
 
                 </LinearLayout>
 
@@ -335,6 +331,7 @@
                 android:layout_rowWeight="1"
                 android:foreground="@drawable/itemback"
                 android:clickable="true"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
                 android:id="@+id/btnFinanzas"
@@ -342,12 +339,10 @@
                 >
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:background="#FFFFFF"
-                    android:padding="16dp">
+                    android:gravity="left">
 
                     <Button
                         android:layout_width="80dp"
@@ -358,12 +353,12 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_marginBottom="12dp"
                         android:text="Finanzas"
                         android:textSize="16sp"
+                        android:gravity="center"
                         android:fontFamily="@font/futura"
-                        android:textColor="#000000"
-                        android:layout_height="wrap_content"/>
+                        android:textColor="#fff"
+                        android:layout_height="match_parent"/>
 
                 </LinearLayout>
 
@@ -377,18 +372,17 @@
                 android:foreground="@drawable/itemback"
                 android:clickable="true"
                 app:cardElevation="6dp"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="12dp"
                 android:id="@+id/btnSolicitudProductoAdmin"
                 android:layout_margin="12dp"
                 >
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:background="#F1E8FC"
-                    android:padding="16dp">
+                    android:gravity="left">
 
                     <Button
                         android:layout_width="80dp"
@@ -399,12 +393,12 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="Solicitar\nProducto"
+                        android:text="Solicitar Producto"
                         android:textSize="16sp"
+                        android:gravity="center"
                         android:fontFamily="@font/futura"
-                        android:textColor="#000000"
-                        android:layout_height="wrap_content"/>
+                        android:textColor="#fff"
+                        android:layout_height="match_parent"/>
 
                 </LinearLayout>
 
@@ -418,18 +412,17 @@
                 android:foreground="@drawable/itemback"
                 android:clickable="true"
                 app:cardElevation="6dp"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="12dp"
                 android:id="@+id/btnListaSolicitudesAdmin"
                 android:layout_margin="12dp"
                 >
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:background="#E8FCFC"
-                    android:padding="16dp">
+                    android:gravity="left">
 
                     <Button
                         android:layout_width="80dp"
@@ -439,13 +432,12 @@
                         android:layout_height="80dp"/>
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="Solicitudes de\nDelivery"
+                        android:text="Solicitudes de Delivery"
                         android:textSize="16sp"
-                        android:textAlignment="center"
-                        android:textColor="#000000"
+                        android:gravity="center"
+                        android:textColor="#fff"
                         android:fontFamily="@font/futura"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="match_parent"/>
 
                 </LinearLayout>
 
@@ -458,6 +450,7 @@
                 android:layout_rowWeight="1"
                 app:cardElevation="6dp"
                 android:foreground="@drawable/itemback"
+                app:cardBackgroundColor="@android:color/transparent"
                 android:clickable="true"
                 app:cardCornerRadius="12dp"
                 android:id="@+id/btnListaSolicitudProducto"
@@ -465,13 +458,10 @@
                 >
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-
-                    android:background="#FFF9D9"
-                    android:padding="16dp">
+                    android:gravity="left">
 
                     <Button
                         android:layout_width="80dp"
@@ -482,13 +472,12 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:textAlignment="center"
-                        android:layout_marginBottom="12dp"
-                        android:text="Productos\nSolicitados"
+                        android:gravity="center"
+                        android:text="Productos Solicitados"
                         android:textSize="16sp"
                         android:fontFamily="@font/futura"
-                        android:textColor="#000000"
-                        android:layout_height="wrap_content"/>
+                        android:textColor="#fff"
+                        android:layout_height="match_parent"/>
 
                 </LinearLayout>
 
@@ -502,18 +491,17 @@
                 android:foreground="@drawable/itemback"
                 android:clickable="true"
                 app:cardElevation="6dp"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="12dp"
                 android:id="@+id/btnPedidos"
                 android:layout_margin="12dp"
                 >
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:background="#F1FEE4"
-                    android:padding="16dp">
+                    android:gravity="left">
 
                     <Button
                         android:layout_width="80dp"
@@ -524,12 +512,13 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_marginBottom="12dp"
                         android:text="Pedidos"
+                        android:layout_marginLeft="3dp"
+                        android:gravity="center"
                         android:textSize="16sp"
                         android:fontFamily="@font/futura"
-                        android:textColor="#000000"
-                        android:layout_height="wrap_content"/>
+                        android:textColor="#fff"
+                        android:layout_height="match_parent"/>
 
                 </LinearLayout>
 
@@ -542,6 +531,7 @@
                 android:layout_rowWeight="1"
                 android:foreground="@drawable/itemback"
                 android:clickable="true"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
                 android:id="@+id/btnMapaProveedor"
@@ -549,12 +539,10 @@
                 >
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:background="#E3F8FF"
-                    android:padding="16dp">
+                    android:gravity="left">
 
                     <Button
                         android:layout_width="80dp"
@@ -565,13 +553,12 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="Mapa de\nProveedores"
+                        android:text="Mapa de Proveedores"
                         android:textSize="16sp"
-                        android:textAlignment="center"
-                        android:textColor="#000000"
+                        android:gravity="center"
+                        android:textColor="#fff"
                         android:fontFamily="@font/futura"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="match_parent"/>
 
                 </LinearLayout>
 
@@ -585,18 +572,17 @@
                 android:foreground="@drawable/itemback"
                 android:clickable="true"
                 app:cardElevation="6dp"
+                app:cardBackgroundColor="@android:color/transparent"
                 android:onClick="ShowPopupLista"
                 app:cardCornerRadius="12dp"
                 android:layout_margin="12dp"
                 >
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:background="#E3EAFF"
-                    android:padding="16dp">
+                    android:gravity="left">
 
                     <Button
                         android:layout_width="80dp"
@@ -607,12 +593,12 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:text="Lista de\nUsuarios"
+                        android:text="Lista de Usuarios"
                         android:textSize="16sp"
+                        android:gravity="center"
                         android:fontFamily="@font/futura"
-                        android:textColor="#000000"
-                        android:layout_height="wrap_content"/>
+                        android:textColor="#fff"
+                        android:layout_height="match_parent"/>
 
                 </LinearLayout>
 

@@ -19,8 +19,10 @@ import com.google.gson.GsonBuilder;
 import java.util.List;
 import aukde.food.administrador.R;
 import aukde.food.administrador.paquetes.Actividades.Pedidos.DetallePedido;
+import aukde.food.administrador.paquetes.Actividades.Pedidos.WoocommerceDetailOrder;
 import aukde.food.administrador.paquetes.ModelsWoocommerce.Woocommerce;
 import aukde.food.administrador.paquetes.Retrofit.WoocommerceAPI;
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,6 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AdapterWoocommerce extends RecyclerView.Adapter<AdapterWoocommerce.viewHolderOrders>  {
 
     private List<Woocommerce> woo;
+    private Context c;
 
     public AdapterWoocommerce(List<Woocommerce> woocommerces) {
         this.woo = woocommerces ;
@@ -38,6 +41,7 @@ public class AdapterWoocommerce extends RecyclerView.Adapter<AdapterWoocommerce.
     @NonNull
     @Override
     public viewHolderOrders onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+        c = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_woocommerce_orders,parent,false);
         viewHolderOrders holder = new viewHolderOrders(view);
         return holder;
@@ -56,9 +60,21 @@ public class AdapterWoocommerce extends RecyclerView.Adapter<AdapterWoocommerce.
         holder.lastName.setText(ls.getBilling().getLastName());
         holder.phone.setText(ls.getBilling().getPhone());
 
+
+        for (int j = 0 ; j<ls.getMeta_data().size();j++){
+            if (ls.getMeta_data().get(j).getKey().equals("billing_long")){
+                holder.lng = ls.getMeta_data().get(j).getValue();
+            }
+        }
+
         if ( holder.status.getText().equals("on-hold")){
             holder.status.setText("En espera");
-            holder.status.setTextColor(Color.parseColor("#FFC300"));
+            holder.status.setTextColor(Color.parseColor("#00AC9A"));
+        }
+
+        if ( holder.status.getText().equals("pending")){
+            holder.status.setText("Falta de pago");
+            holder.status.setTextColor(Color.parseColor("#2874A6"));
         }
 
         if ( holder.status.getText().equals("cancelled")){
@@ -76,21 +92,18 @@ public class AdapterWoocommerce extends RecyclerView.Adapter<AdapterWoocommerce.
             holder.status.setTextColor(Color.parseColor("#5bbd00"));
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                /*Intent intent = new Intent(v.getContext(), DetallePedido.class);
+                Intent intent = new Intent(c,WoocommerceDetailOrder.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("key",ls);
+                bundle.putSerializable("dataOrder",ls);
                 intent.putExtras(bundle);
-                v.getContext().startActivity(intent);*/
+                c.startActivity(intent);
+                //Toast.makeText(c, "Latitud : "+holder.lat+" , "+"Longitud : "+holder.lng, Toast.LENGTH_SHORT).show();
             }
         });
-
     }
-
-
 
     @Override
     public int getItemCount() {
@@ -101,6 +114,9 @@ public class AdapterWoocommerce extends RecyclerView.Adapter<AdapterWoocommerce.
     public class viewHolderOrders extends RecyclerView.ViewHolder {
 
         TextView order , name , lastName , status , phone;
+        String lat="";
+        String lng="";
+        CircleImageView detail;
 
         public viewHolderOrders(@NonNull final View itemView) {
             super(itemView);
@@ -110,6 +126,7 @@ public class AdapterWoocommerce extends RecyclerView.Adapter<AdapterWoocommerce.
             lastName = itemView.findViewById(R.id.lsLastName);
             status = itemView.findViewById(R.id.lsStatus);
             phone = itemView.findViewById(R.id.lsPhone);
+            detail = itemView.findViewById(R.id.detailOrder);
 
         }
     }

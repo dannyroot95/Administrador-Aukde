@@ -15,9 +15,48 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:gravity="right"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="right"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/futura"
+                    android:text="Estado :  "
+                    android:textColor="#3B3B3B"
+                    android:textSize="15dp"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/futura"
+                    android:textSize="15dp"
+                    android:id="@+id/orderStatusClient"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -26,7 +65,7 @@
                 android:layout_rowWeight="1"
                 app:cardElevation="6dp"
                 android:layout_margin="18dp"
-                app:cardCornerRadius="5dp">
+                app:cardCornerRadius="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -73,12 +112,14 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/futura"
                                     android:text="Nombres :  "
+                                    android:textColor="#3B3B3B"
                                     android:textAlignment="center" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/futura"
+                                    android:textColor="#3B3B3B"
                                     android:id="@+id/orderNameClient"
                                     android:textAlignment="center"/>
 
@@ -95,12 +136,14 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/futura"
                                     android:text="Apellidos :  "
+                                    android:textColor="#3B3B3B"
                                     android:textAlignment="center"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/futura"
+                                    android:textColor="#3B3B3B"
                                     android:id="@+id/orderLastNameClient"
                                     android:textAlignment="center"/>
 
@@ -117,6 +160,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/futura"
                                     android:text="Teléfono :  "
+                                    android:textColor="#3B3B3B"
                                     android:textAlignment="center"/>
 
                                 <TextView
@@ -144,12 +188,14 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/futura"
                                     android:text="Email :  "
+                                    android:textColor="#3B3B3B"
                                     android:textAlignment="center"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/futura"
+                                    android:textColor="#3B3B3B"
                                     android:id="@+id/orderEmailClient"
                                     android:textAlignment="center"/>
 
@@ -162,6 +208,398 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardElevation="6dp"
+                    android:layout_margin="18dp"
+                    app:cardCornerRadius="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#F9F9F9"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/futura"
+                            android:text="Ubicación del cliente"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="50dp"
+                                android:layout_marginLeft="5dp"
+                                android:src="@drawable/gradient_map"
+                                android:layout_height="50dp"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="60dp"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="7dp">
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:orientation="horizontal"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/futura"
+                                        android:text="Dirección :  "
+                                        android:textColor="#3B3B3B"
+                                        android:textAlignment="center" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/futura"
+                                        android:textColor="#3B3B3B"
+                                        android:id="@+id/orderAddressClient"
+                                        android:textAlignment="center"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:orientation="horizontal"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/futura"
+                                        android:text="Referencia :  "
+                                        android:textColor="#3B3B3B"
+                                        android:textAlignment="center"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/futura"
+                                        android:textColor="#3B3B3B"
+                                        android:text="Ninguna"
+                                        android:id="@+id/orderReferenceClient"
+                                        android:textAlignment="center"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardElevation="6dp"
+                    android:layout_margin="18dp"
+                    app:cardCornerRadius="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#F9F9F9"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/futura"
+                            android:text="Método de pago"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="7dp">
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:orientation="horizontal"
+                                    android:gravity="center"
+                                    android:layout_gravity="center"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:fontFamily="@font/futura"
+                                        android:text="Efectivo"
+                                        android:textSize="16sp"
+                                        android:gravity="center"
+                                        android:id="@+id/orderPayMethod"
+                                        android:textColor="#3B3B3B"
+                                        android:textAlignment="center" />
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/imgPayMethod"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="6dp"
+                    app:cardCornerRadius="8dp"
+                    android:layout_margin="12dp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:background="#F9F9F9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:fontFamily="@font/futura"
+                            android:text="Detalles del producto(s)"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
+
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="8dp"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:text="Local"
+                                        android:textStyle="bold"
+                                        android:textAlignment="center"
+                                        android:fontFamily="@font/futura"
+                                        android:textColor="#3B3B3B"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:textColor="#3B3B3B"
+                                        android:layout_width="60dp"
+                                        android:id="@+id/lsSku"
+                                        android:textAlignment="center"
+                                        android:fontFamily="@font/futura"
+                                        android:layout_height="wrap_content"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="center"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:text="Producto"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/futura"
+                                        android:textColor="#3B3B3B"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:id="@+id/lsProduct"
+                                        android:layout_width="wrap_content"
+                                        android:fontFamily="@font/futura"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="#3B3B3B"
+                                        android:gravity="center"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="center"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:text="Cant."
+                                        android:textColor="#3B3B3B"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/futura"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:textColor="#3B3B3B"
+                                        android:fontFamily="@font/futura"
+                                        android:gravity="center"
+                                        android:id="@+id/lsQuantity"
+                                        android:layout_height="wrap_content"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="center"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:text="Precio"
+                                        android:gravity="center"
+                                        android:textColor="#3B3B3B"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/futura"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:textColor="#3B3B3B"
+                                        android:maxLength="7"
+                                        android:fontFamily="@font/futura"
+                                        android:id="@+id/lsPrice"
+                                        android:layout_height="wrap_content"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="center"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:text="Subtotal"
+                                        android:gravity="center"
+                                        android:textColor="#3B3B3B"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/futura"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:textColor="#3B3B3B"
+                                        android:fontFamily="@font/futura"
+                                        android:id="@+id/lsSubtotal"
+                                        android:layout_height="wrap_content"/>
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </HorizontalScrollView>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="5dp"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="right"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/futura"
+                            android:text="Envío :  "
+                            android:textColor="#3B3B3B"
+                            android:textSize="15dp"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/futura"
+                            android:textSize="15dp"
+                            android:textColor="#3B3B3B"
+                            android:layout_marginRight="20dp"
+                            android:id="@+id/orderShippingClient"
+                            android:textAlignment="center"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="right"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/futura"
+                            android:text="Total :  "
+                            android:textColor="#3B3B3B"
+                            android:textSize="15dp"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/futura"
+                            android:textSize="15dp"
+                            android:textColor="#FC0000"
+                            android:layout_marginRight="20dp"
+                            android:id="@+id/orderTotalClient"
+                            android:textAlignment="center"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </ScrollView>
     </LinearLayout>

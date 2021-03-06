@@ -30,7 +30,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".paquetes.Actividades.Pedidos.WoocommerceDetailOrder"></activity>
+        <activity android:name=".paquetes.Actividades.Pedidos.WoocommerceDetailOrder"
+            android:parentActivityName=".paquetes.Actividades.Pedidos.OrderListWoocommerce"
+            android:screenOrientation="portrait"
+            ></activity>
         <activity android:name=".paquetes.Actividades.Pedidos.WooOrders" />
         <activity
             android:name=".paquetes.Actividades.Pedidos.OrderListWoocommerce"

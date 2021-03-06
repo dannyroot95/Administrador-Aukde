@@ -5,14 +5,23 @@ import java.io.Serializable;
 public class LineItems implements Serializable {
 
 
-	private int quantity;
+	private String quantity;
 	private String total;
 	private String subtotal;
-	private double price;
+	private String price;
 	private String name;
 	private String sku;
 
-	public int getQuantity() {
+	public LineItems(String quantity, String total, String subtotal, String price, String name, String sku) {
+		this.quantity = quantity;
+		this.total = total;
+		this.subtotal = subtotal;
+		this.price = price;
+		this.name = name;
+		this.sku = sku;
+	}
+
+	public String getQuantity() {
 		return quantity;
 	}
 
@@ -24,7 +33,7 @@ public class LineItems implements Serializable {
 		return subtotal;
 	}
 
-	public double getPrice() {
+	public String getPrice() {
 		return price;
 	}
 

@@ -2,5 +2,6 @@
     <string name="app_name">Administrador Aukde</string>
     <string name="title_activity_lista_de_pedidos">ListaDePedidos</string>
     <string name="title_activity_mapa_cliente_por_llamada">Map</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

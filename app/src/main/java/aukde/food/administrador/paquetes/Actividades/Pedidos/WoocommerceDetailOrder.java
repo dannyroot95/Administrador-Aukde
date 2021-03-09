@@ -9,7 +9,9 @@ import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,9 +37,10 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
 
 
     TextView name , lastName , phone , email , address , status, sku ,
-            productName , quantity , price , subtotal , total , shipping,
-            payMethod;
+            productName , quantity , price , subtotal , total ,
+            payMethod , aditional , priceAditional , payWith;
     String id;
+    EditText shipping;
     ImageView methodPayIMG;
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
     private MapView mapView;
@@ -45,6 +48,9 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
     private GoogleMap mMap;
     double latitude ;
     double longitude ;
+    String [] negocios ;
+    String listSku = "";
+    LinearLayout linear;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -67,7 +73,14 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         total = findViewById(R.id.orderTotalClient);
         payMethod = findViewById(R.id.orderPayMethod);
         methodPayIMG = findViewById(R.id.imgPayMethod);
+        linear = findViewById(R.id.linearPayWith);
+        payWith = findViewById(R.id.payWith);
+        aditional = findViewById(R.id.lsProductAditional);
+        priceAditional = findViewById(R.id.lsPriceAditional);
+
         geocoder = new Geocoder(this);
+
+        negocios = getResources().getStringArray(R.array.negocios);
 
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
@@ -107,6 +120,36 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
             }
         }
 
+        for (int m = 0 ; m<woo.getMeta_data().size() ; m++){
+            if (woo.getMeta_data().get(m).getKey().equals("additional_monto")){
+                data.add(woo.getMeta_data().get(m).getValue());
+                LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                linear.setLayoutParams(param);
+                payWith.setText(data.get(9));
+            }
+        }
+
+        for (int k = 0 ; k<woo.getLine_items().size(); k++)
+        {
+            for (int n = 0 ; n<woo.getLine_items().get(k).getMeta_data().size() ; n++)
+            {
+                if(woo.getLine_items().get(k).getMeta_data().get(n).getKey().contains("Adicionales")){
+                    data.add(woo.getLine_items().get(k).getMeta_data().get(n).getValue());
+                    data.add(woo.getLine_items().get(k).getMeta_data().get(n).getKey());
+                    String addOn = data.get(10);
+                    String price = data.get(11);
+                    aditional.append(addOn);
+                    priceAditional.append(price);
+                }
+            }
+        }
+        String regx1 = priceAditional.getText().toString().replaceAll("Adicionales","");
+        String regx2 = regx1.replaceAll("\\s*","");
+        String rexg3 = regx2.replaceAll("[()]","");
+        priceAditional.setText(rexg3);
 
 
         MiToolbar.Mostrar(this,"Detalle del pedido #"+id,true);
@@ -124,12 +167,16 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         checkPayImage();
 
         for (int k = 0 ; k<woo.getLine_items().size(); k++){
-            sku.append(woo.getLine_items().get(k).getSku()+"\n");
+            listSku = woo.getLine_items().get(k).getSku()+"\n";
             productName.append(woo.getLine_items().get(k).getName()+"\n");
             quantity.append(woo.getLine_items().get(k).getQuantity()+"\n");
             price.append("S/"+woo.getLine_items().get(k).getPrice()+"\n");
             subtotal.append("S/"+woo.getLine_items().get(k).getSubtotal()+"\n");
         }
+
+        String [] c = listSku.split("-");
+        Toast.makeText(this, c[0], Toast.LENGTH_SHORT).show();
+        sku.setText(c[0]);
 
         shipping.setText(woo.getShipping_total());
         if (shipping.getText().toString().equals("")){
@@ -138,10 +185,9 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         else{
             shipping.setText("S/"+woo.getShipping_total());
         }
-
         total.setText("S/"+woo.getTotal());
-        //Toast.makeText(this, data.get(0), Toast.LENGTH_SHORT).show();
 
+        //allBusiness();
     }
 
     @Override
@@ -202,24 +248,37 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.getUiSettings().setZoomControlsEnabled(true);
         try {
-
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-
             if (addresses.size() > 0) {
                 Address address = addresses.get(0);
                 LatLng aukde = new LatLng(address.getLatitude(), address.getLongitude());
                 MarkerOptions markerOptions = new MarkerOptions()
                         .position(aukde)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.aukdemarker))
-                        .title("Cliente");
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.usuario))
+                        .title("CLIENTE");
                 mMap.addMarker(markerOptions).showInfoWindow();
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(aukde, 16));
-
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    private void allBusiness(){
+
+        String code = sku.getText().toString();
+        String[] skCode = code.split("\\n");
+
+            for(int i = 0 ; i<negocios.length ; i++){
+                String [] val = negocios[i].split("-");
+                Toast.makeText(this, val[i], Toast.LENGTH_SHORT).show();
+                if (negocios[i].split("-").equals(skCode)){
+                    Toast.makeText(this, negocios[i], Toast.LENGTH_SHORT).show();
+                }
+        }
+
+    }
+
 
     @Override
     protected void onResume() {

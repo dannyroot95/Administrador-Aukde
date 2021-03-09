@@ -307,18 +307,38 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardElevation="6dp"
+                android:layout_margin="18dp"
+                app:cardCornerRadius="8dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:orientation="vertical"
-                    android:id="@+id/map_container">
+                    android:layout_height="wrap_content"
+                    android:background="#F9F9F9"
+                    android:orientation="vertical">
 
-                    <com.google.android.gms.maps.MapView
-                        xmlns:android="http://schemas.android.com/apk/res/android"
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/map_view" />
+                        android:layout_height="300dp"
+                        android:orientation="vertical"
+                        android:id="@+id/map_container">
+
+                        <com.google.android.gms.maps.MapView
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/map_view" />
+                    </LinearLayout>
+
+
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -356,7 +376,8 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:orientation="vertical"
-                                android:padding="7dp">
+                                android:padding="7dp"
+                                tools:ignore="UselessParent">
 
 
                                 <LinearLayout
@@ -382,6 +403,37 @@
                                         android:layout_marginLeft="10dp"
                                         android:layout_height="wrap_content"
                                         android:id="@+id/imgPayMethod"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:orientation="horizontal"
+                                    android:gravity="center"
+                                    android:layout_marginTop="8dp"
+                                    android:id="@+id/linearPayWith"
+                                    android:layout_gravity="center"
+                                    android:layout_height="0dp">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:fontFamily="@font/futura"
+                                        android:text="Paga con : S/"
+                                        android:textSize="16sp"
+                                        android:gravity="center"
+                                        android:textColor="#3B3B3B"
+                                        android:textAlignment="center" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:fontFamily="@font/futura"
+                                        android:textSize="16sp"
+                                        android:id="@+id/payWith"
+                                        android:gravity="center"
+                                        android:textColor="#3B3B3B"
+                                        android:textAlignment="center" />
 
                                 </LinearLayout>
 
@@ -550,10 +602,97 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="6dp"
+                    app:cardCornerRadius="8dp"
+                    android:layout_margin="12dp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:background="#F9F9F9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:fontFamily="@font/futura"
+                            android:text="Adicionales"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
+
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="8dp"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:orientation="vertical"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:text="Producto"
+                                        android:textStyle="bold"
+                                        android:textAlignment="center"
+                                        android:fontFamily="@font/futura"
+                                        android:textColor="#3B3B3B"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:textColor="#3B3B3B"
+                                        android:layout_width="wrap_content"
+                                        android:id="@+id/lsProductAditional"
+                                        android:textAlignment="center"
+                                        android:fontFamily="@font/futura"
+                                        android:layout_height="wrap_content"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="center"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:text="Precio"
+                                        android:textStyle="bold"
+                                        android:fontFamily="@font/futura"
+                                        android:textColor="#3B3B3B"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:id="@+id/lsPriceAditional"
+                                        android:layout_width="wrap_content"
+                                        android:fontFamily="@font/futura"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="#3B3B3B"
+                                        android:gravity="center"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </HorizontalScrollView>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:orientation="vertical"
                     android:layout_margin="5dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
@@ -564,14 +703,15 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:fontFamily="@font/futura"
                             android:text="Envío :  "
+                            android:gravity="center"
                             android:textColor="#3B3B3B"
                             android:textSize="15dp"
                             android:textAlignment="center" />
 
-                        <TextView
+                        <EditText
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/futura"
@@ -609,6 +749,37 @@
                             android:textAlignment="center"/>
 
                     </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="8dp"
+                    android:background="@android:color/darker_gray"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_margin="5dp"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/futura"
+                        android:backgroundTint="#000"
+                        android:text="Solicitar producto(s)"
+                        android:textColor="#fff"
+                        android:layout_height="wrap_content"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="#fff"
+                        android:fontFamily="@font/futura"
+                        android:text="Asignar repartidor"
+                        android:backgroundTint="#000"
+                        android:layout_height="wrap_content"/>
 
                 </LinearLayout>
 

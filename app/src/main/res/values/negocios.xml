@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="negocios">
+        <item>FAP-Aukde</item>
+        <item>FCP-La cabañita</item>
+        <item>PPI-Paladar del inca</item>
+    </string-array>
+
+</resources>

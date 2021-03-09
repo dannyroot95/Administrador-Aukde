@@ -99,7 +99,7 @@ public class MapaClientePorLlamada extends FragmentActivity implements OnMapRead
                     origen = new LatLng(location.getLatitude(), location.getLongitude());
                     String stlatitud = poscicion.getString("latitud");
                     String stlongitud = poscicion.getString("longitud");
-                    if (stlatitud.isEmpty() && stlongitud.isEmpty()) {
+                    if(stlatitud.isEmpty() && stlongitud.isEmpty()) {
                         //finish();
                     } else {
                         Double latitud = Double.parseDouble(stlatitud);

@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,6 +24,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,8 +34,15 @@ import java.util.List;
 import aukde.food.administrador.R;
 import aukde.food.administrador.paquetes.Inclusiones.MiToolbar;
 import aukde.food.administrador.paquetes.Modelos.PedidoLlamada;
+import aukde.food.administrador.paquetes.ModelsWoocommerce.Products;
 import aukde.food.administrador.paquetes.ModelsWoocommerce.Woocommerce;
+import aukde.food.administrador.paquetes.Retrofit.WoocommerceAPI;
 import es.dmoral.toasty.Toasty;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -39,6 +50,7 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
     TextView name , lastName , phone , email , address , status, sku ,
             productName , quantity , price , subtotal , total ,
             payMethod , aditional , priceAditional , payWith;
+
     String id;
     EditText shipping;
     ImageView methodPayIMG;
@@ -51,6 +63,10 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
     String [] negocios ;
     String listSku = "";
     LinearLayout linear;
+    int idProduct;
+    int variationID;
+    String variation = "";
+    WoocommerceAPI api;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -82,6 +98,14 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
 
         negocios = getResources().getStringArray(R.array.negocios);
 
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://aukde.com/wp-json/wc/v3/products/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        api = retrofit.create(WoocommerceAPI.class);
+
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
@@ -93,7 +117,7 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        Woocommerce woo = (Woocommerce) bundle.getSerializable("dataOrder");
+        final Woocommerce woo = (Woocommerce) bundle.getSerializable("dataOrder");
         ArrayList<String> data;
         data = new ArrayList<>();
         data.add(woo.getId().toString());
@@ -146,11 +170,11 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
                 }
             }
         }
+
         String regx1 = priceAditional.getText().toString().replaceAll("Adicionales","");
         String regx2 = regx1.replaceAll("\\s*","");
         String rexg3 = regx2.replaceAll("[()]","");
         priceAditional.setText(rexg3);
-
 
         MiToolbar.Mostrar(this,"Detalle del pedido #"+id,true);
 
@@ -168,11 +192,72 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
 
         for (int k = 0 ; k<woo.getLine_items().size(); k++){
             listSku = woo.getLine_items().get(k).getSku()+"\n";
-            productName.append(woo.getLine_items().get(k).getName()+"\n");
+            //productName.append(woo.getLine_items().get(k).getName()+"\n");
             quantity.append(woo.getLine_items().get(k).getQuantity()+"\n");
-            price.append("S/"+woo.getLine_items().get(k).getPrice()+"\n");
-            subtotal.append("S/"+woo.getLine_items().get(k).getSubtotal()+"\n");
+
+
+            idProduct = Integer.parseInt(woo.getLine_items().get(k).getProduct_id());
+            variation = woo.getLine_items().get(k).getVariation_id();
+            variationID = Integer.parseInt(woo.getLine_items().get(k).getVariation_id());
+
+            if(variation.equals("0")){
+                Call<Products> call = api.getProductData(idProduct);
+                final int finalK = k;
+                call.enqueue(new Callback<Products>() {
+                    @Override
+                    public void onResponse(Call<Products> call, Response<Products> response) {
+                        if(!response.isSuccessful()){
+                            Toasty.error(WoocommerceDetailOrder.this, "Error : " + response.code(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        String value = response.body().getPrice();
+                        String nameProduct = response.body().getName();
+                        double valueDouble = Double.parseDouble(value);
+                        int cant = Integer.parseInt(woo.getLine_items().get(finalK).getQuantity());
+                        double sum = cant*valueDouble;
+                        price.append("S/"+value+"\n");
+                        subtotal.append("S/"+(sum)+"\n");
+                        productName.append(nameProduct+"\n");
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Products> call, Throwable t) {
+
+                    }
+                });
+            }
+            else {
+                Call<Products> call = api.getProductData(variationID);
+                final int finalK = k;
+                call.enqueue(new Callback<Products>() {
+                    @Override
+                    public void onResponse(Call<Products> call, Response<Products> response) {
+                        if(!response.isSuccessful()){
+                            Toasty.error(WoocommerceDetailOrder.this, "Error : " + response.code(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        String value = response.body().getPrice();
+                        String nameProduct = response.body().getName();
+                        double valueDouble = Double.parseDouble(value);
+                        int cant = Integer.parseInt(woo.getLine_items().get(finalK).getQuantity());
+                        double sum = cant*valueDouble;
+                        price.append("S/"+value+"\n");
+                        subtotal.append("S/"+(sum)+"\n");
+                        productName.append(nameProduct+"\n");
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Products> call, Throwable t) {
+
+                    }
+                });
+            }
+
         }
+
 
         String [] c = listSku.split("-");
         Toast.makeText(this, c[0], Toast.LENGTH_SHORT).show();
@@ -188,6 +273,7 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         total.setText("S/"+woo.getTotal());
 
         //allBusiness();
+
     }
 
     @Override
@@ -205,7 +291,7 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
 
     private void verifyState(){
 
-        if (status.getText().toString().equals("cancelled")){
+        if(status.getText().toString().equals("cancelled")){
             status.setText("Cancelado");
             status.setTextColor(Color.parseColor("#FC0000"));
         }
@@ -241,7 +327,6 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         }
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -274,9 +359,7 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
                 Toast.makeText(this, val[i], Toast.LENGTH_SHORT).show();
                 if (negocios[i].split("-").equals(skCode)){
                     Toast.makeText(this, negocios[i], Toast.LENGTH_SHORT).show();
-                }
-        }
-
+                } }
     }
 
 

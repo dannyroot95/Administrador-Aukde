@@ -567,7 +567,6 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:textColor="#3B3B3B"
-                                        android:maxLength="7"
                                         android:fontFamily="@font/futura"
                                         android:id="@+id/lsPrice"
                                         android:layout_height="wrap_content"/>
@@ -770,6 +769,7 @@
                         android:backgroundTint="#000"
                         android:text="Solicitar producto(s)"
                         android:textColor="#fff"
+                        android:id="@+id/prueba"
                         android:layout_height="wrap_content"/>
 
                     <Button

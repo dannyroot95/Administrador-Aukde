@@ -160,21 +160,20 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         {
             for (int n = 0 ; n<woo.getLine_items().get(k).getMeta_data().size() ; n++)
             {
-                if(woo.getLine_items().get(k).getMeta_data().get(n).getKey().contains("Adicionales")){
-                    data.add(woo.getLine_items().get(k).getMeta_data().get(n).getValue());
-                    data.add(woo.getLine_items().get(k).getMeta_data().get(n).getKey());
-                    String addOn = data.get(10);
-                    String price = data.get(11);
-                    aditional.append(addOn);
-                    priceAditional.append(price);
+                String x = woo.getLine_items().get(k).getMeta_data().get(n).getKey();
+
+                if(x.contains("Adicionales ")){
+                    String addOn = woo.getLine_items().get(k).getMeta_data().get(n).getValue();
+                    String price = woo.getLine_items().get(k).getMeta_data().get(n).getKey();
+                    aditional.append(addOn+"\n");
+                    String convert = price.replaceAll("Adicionales","");
+                    String convert2 = convert.replaceAll("\\s*","");
+                    String convert3 = convert2.replaceAll("[()]","");
+                    priceAditional.append(convert3+"\n");
                 }
             }
         }
 
-        String regx1 = priceAditional.getText().toString().replaceAll("Adicionales","");
-        String regx2 = regx1.replaceAll("\\s*","");
-        String rexg3 = regx2.replaceAll("[()]","");
-        priceAditional.setText(rexg3);
 
         MiToolbar.Mostrar(this,"Detalle del pedido #"+id,true);
 
@@ -191,7 +190,8 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         checkPayImage();
 
         for (int k = 0 ; k<woo.getLine_items().size(); k++){
-            listSku = woo.getLine_items().get(k).getSku()+"\n";
+
+
             //productName.append(woo.getLine_items().get(k).getName()+"\n");
             quantity.append(woo.getLine_items().get(k).getQuantity()+"\n");
 
@@ -212,12 +212,15 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
                         }
                         String value = response.body().getPrice();
                         String nameProduct = response.body().getName();
+                        listSku = response.body().getSku();
                         double valueDouble = Double.parseDouble(value);
                         int cant = Integer.parseInt(woo.getLine_items().get(finalK).getQuantity());
                         double sum = cant*valueDouble;
                         price.append("S/"+value+"\n");
                         subtotal.append("S/"+(sum)+"\n");
                         productName.append(nameProduct+"\n");
+                        String [] c = listSku.split("-");
+                        sku.append(c[0]+"\n");
 
                     }
 
@@ -240,12 +243,16 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
 
                         String value = response.body().getPrice();
                         String nameProduct = response.body().getName();
+                        listSku = response.body().getSku();
                         double valueDouble = Double.parseDouble(value);
                         int cant = Integer.parseInt(woo.getLine_items().get(finalK).getQuantity());
                         double sum = cant*valueDouble;
                         price.append("S/"+value+"\n");
                         subtotal.append("S/"+(sum)+"\n");
                         productName.append(nameProduct+"\n");
+
+                        String [] c = listSku.split("-");
+                        sku.append(c[0]+"\n");
 
                     }
 
@@ -261,7 +268,7 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
 
         String [] c = listSku.split("-");
         Toast.makeText(this, c[0], Toast.LENGTH_SHORT).show();
-        sku.setText(c[0]);
+        //sku.setText(c[0]);
 
         shipping.setText(woo.getShipping_total());
         if (shipping.getText().toString().equals("")){

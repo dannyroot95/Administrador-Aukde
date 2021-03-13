@@ -7,11 +7,13 @@ public class Products implements Serializable {
     String id;
     String name;
     String price;
+    String sku;
 
-    public Products(String id, String name, String price) {
+    public Products(String id, String name, String price, String sku) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.sku = sku;
     }
 
     public String getId() {
@@ -24,5 +26,9 @@ public class Products implements Serializable {
 
     public String getPrice() {
         return price;
+    }
+
+    public String getSku() {
+        return sku;
     }
 }

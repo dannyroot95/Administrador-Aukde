@@ -67,6 +67,7 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
     int variationID;
     String variation = "";
     WoocommerceAPI api;
+    Button btnSend;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -93,7 +94,7 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         payWith = findViewById(R.id.payWith);
         aditional = findViewById(R.id.lsProductAditional);
         priceAditional = findViewById(R.id.lsPriceAditional);
-
+        btnSend = findViewById(R.id.prueba);
         geocoder = new Geocoder(this);
 
         negocios = getResources().getStringArray(R.array.negocios);
@@ -190,12 +191,8 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         checkPayImage();
 
         for (int k = 0 ; k<woo.getLine_items().size(); k++){
-
-
             //productName.append(woo.getLine_items().get(k).getName()+"\n");
             quantity.append(woo.getLine_items().get(k).getQuantity()+"\n");
-
-
             idProduct = Integer.parseInt(woo.getLine_items().get(k).getProduct_id());
             variation = woo.getLine_items().get(k).getVariation_id();
             variationID = Integer.parseInt(woo.getLine_items().get(k).getVariation_id());
@@ -266,10 +263,6 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         }
 
 
-        String [] c = listSku.split("-");
-        Toast.makeText(this, c[0], Toast.LENGTH_SHORT).show();
-        //sku.setText(c[0]);
-
         shipping.setText(woo.getShipping_total());
         if (shipping.getText().toString().equals("")){
             shipping.setText("S/0.00");
@@ -279,7 +272,14 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         }
         total.setText("S/"+woo.getTotal());
 
-        //allBusiness();
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                allBusiness();
+            }
+        });
+
+
 
     }
 
@@ -360,13 +360,10 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
 
         String code = sku.getText().toString();
         String[] skCode = code.split("\\n");
+        for(int i=0 ; i<negocios.length ; i++){
+            Toast.makeText(this, negocios[i], Toast.LENGTH_SHORT).show();
+        }
 
-            for(int i = 0 ; i<negocios.length ; i++){
-                String [] val = negocios[i].split("-");
-                Toast.makeText(this, val[i], Toast.LENGTH_SHORT).show();
-                if (negocios[i].split("-").equals(skCode)){
-                    Toast.makeText(this, negocios[i], Toast.LENGTH_SHORT).show();
-                } }
     }
 
 

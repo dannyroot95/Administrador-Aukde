@@ -2,7 +2,7 @@
 <resources>
 
     <string-array name="negocios">
-        <item>FAP-Aukde</item>
+        <item>WM-Aukde</item>
         <item>FCP-La cabañita</item>
         <item>PPI-Paladar del inca</item>
     </string-array>

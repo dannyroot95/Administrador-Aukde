@@ -32,6 +32,7 @@ public class ProveedorProvider {
         map.put("email",proveedor.getEmail());
         map.put("latitud",proveedor.getLatitud());
         map.put("longitud",proveedor.getLongitud());
+        map.put("photo",proveedor.getPhoto());
 
         return mDatabaseReference.child(proveedor.getId()).setValue(map);
 

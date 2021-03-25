@@ -418,6 +418,39 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:text="Subir Logo"
+                    android:textSize="16sp"
+                    android:layout_weight="1"
+                    android:id="@+id/btnOpenGallery"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/futura"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="match_parent"/>
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_height="100dp"
+                    android:id="@+id/imgProfile"
+                    android:layout_gravity="bottom"
+                    app:civ_border_color="#E7E7E7"
+                    app:civ_border_width="2dp"
+                    android:clickable="true"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:backgroundTint="#CACACA"
+                    android:background="@drawable/ic_user"
+                    android:layout_width="100dp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

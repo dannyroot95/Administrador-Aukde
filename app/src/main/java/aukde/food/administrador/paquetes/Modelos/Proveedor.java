@@ -15,8 +15,12 @@ public class Proveedor {
     String email;
     String latitud;
     String longitud;
+    String photo;
 
-    public Proveedor(String id, String nombres, String apellidos, String nombreUsuario, String dni, String telefono, String direccion, String categoria, String nombreEmpresa, String ruc, String email, String latitud, String longitud) {
+
+    public Proveedor(String id, String nombres, String apellidos, String nombreUsuario, String dni,
+                     String telefono, String direccion, String categoria, String nombreEmpresa,
+                     String ruc, String email, String latitud, String longitud, String photo) {
         this.id = id;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -30,6 +34,7 @@ public class Proveedor {
         this.email = email;
         this.latitud = latitud;
         this.longitud = longitud;
+        this.photo = photo;
     }
 
     public String getId() {
@@ -134,5 +139,13 @@ public class Proveedor {
 
     public void setLongitud(String longitud) {
         this.longitud = longitud;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

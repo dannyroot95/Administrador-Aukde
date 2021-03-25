@@ -117,8 +117,7 @@
                 app:cardElevation="6dp"
                 android:id="@+id/btnPerfil"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
-                >
+                android:layout_margin="12dp">
 
                 <LinearLayout
                     android:orientation="horizontal"

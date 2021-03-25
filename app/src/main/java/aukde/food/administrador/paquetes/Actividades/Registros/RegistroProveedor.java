@@ -1,6 +1,7 @@
 package aukde.food.administrador.paquetes.Actividades.Registros;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
@@ -12,10 +13,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -38,12 +41,17 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -53,6 +61,9 @@ import aukde.food.administrador.paquetes.Inclusiones.MiToolbar;
 import aukde.food.administrador.paquetes.Modelos.Proveedor;
 import aukde.food.administrador.paquetes.Providers.AuthProviders;
 import aukde.food.administrador.paquetes.Providers.ProveedorProvider;
+import aukde.food.administrador.paquetes.Utils.CompressorBitmapImage;
+import aukde.food.administrador.paquetes.Utils.FileUtil;
+import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
 public class RegistroProveedor extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener,
@@ -78,6 +89,10 @@ public class RegistroProveedor extends AppCompatActivity implements OnMapReadyCa
     private LatLng destino;
     private Vibrator vibrator;
     long tiempo = 100;
+    private final int GALLERY_REQUEST = 11;
+    String photo = "";
+    CircleImageView photoLogo;
+    private File mImageFile;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -113,6 +128,7 @@ public class RegistroProveedor extends AppCompatActivity implements OnMapReadyCa
         edtLatitud.setEnabled(false);
         btnMap = findViewById(R.id.btnMapear);
         mapView = findViewById(R.id.map_view);
+        photoLogo = findViewById(R.id.imgProfile);
 
 
         geocoder = new Geocoder(this);
@@ -187,6 +203,25 @@ public class RegistroProveedor extends AppCompatActivity implements OnMapReadyCa
             }
         });
 
+        photoLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String nameProvider = edtNombreEmpresa.getText().toString();
+                if (nameProvider.isEmpty()){
+                    Toasty.info(RegistroProveedor.this, "Agrege el NOMBRE del local", Toast.LENGTH_SHORT,true).show();
+                }
+                else {
+                    openGallery();
+                }
+            }
+        });
+
+    }
+
+    private void openGallery(){
+        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        startActivityForResult(galleryIntent,GALLERY_REQUEST);
     }
 
     private void ClickRegistro() {
@@ -210,14 +245,14 @@ public class RegistroProveedor extends AppCompatActivity implements OnMapReadyCa
         if(!nombres.isEmpty() && !apellidos.isEmpty() &&!username.isEmpty() && !dni.isEmpty() && !telefono.isEmpty()
                 && !direccion.isEmpty() && !categoria.isEmpty() && !nombre_empresa.isEmpty() &&
                 !ruc.isEmpty() && !email.isEmpty() && !password.isEmpty()
-                && !repetirPass.isEmpty() && !ClaveAuth.isEmpty() && !latitud.isEmpty() && !longitud.isEmpty()){
+                && !repetirPass.isEmpty() && !ClaveAuth.isEmpty() && !latitud.isEmpty() && !longitud.isEmpty() && !photo.equals("")){
 
             mDialog.show();
             mDialog.setMessage("Registrando usuario...");
             if(password.length()>=6){
                 if(password.equals(repetirPass)){
                     if(ClaveAuth.equals("AUK2020+*") || ClaveAuth.equals("WRZ20@") || ClaveAuth.equals("GOGOOL*")){
-                        registrar(nombres,apellidos,username,dni,telefono,direccion,categoria,nombre_empresa,ruc,email,latitud,longitud,password);
+                        registrar(nombres,apellidos,username,dni,telefono,direccion,categoria,nombre_empresa,ruc,email,latitud,longitud,photo,password);
                     }
                     else {
                         mDialog.dismiss();
@@ -241,14 +276,14 @@ public class RegistroProveedor extends AppCompatActivity implements OnMapReadyCa
 
     }
 
-    private void registrar(final String nombres, final String apellidos,final String username,final String dni,final String telefono,final String direccion,final String categoria,final String nombre_empresa,final String ruc,final String email,final String latitud,final String longitud, String password) {
+    private void registrar(final String nombres, final String apellidos,final String username,final String dni,final String telefono,final String direccion,final String categoria,final String nombre_empresa,final String ruc,final String email,final String latitud,final String longitud, final String photo, String password) {
 
         mAuthProviders.Registro(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Proveedor proveedor = new Proveedor(id,nombres,apellidos,username,dni,telefono,direccion,categoria,nombre_empresa,ruc,email,latitud,longitud);
+                Proveedor proveedor = new Proveedor(id,nombres,apellidos,username,dni,telefono,direccion,categoria,nombre_empresa,ruc,email,latitud,longitud,photo);
                 mapear(proveedor);
             }
         });
@@ -389,6 +424,49 @@ public class RegistroProveedor extends AppCompatActivity implements OnMapReadyCa
     @Override
     public void onMarkerDrag(Marker marker) {
         Log.d(TAG, "onMarkerDrag: ");
+    }
+
+    private void saveImage(){
+        mDialog.show();
+        mDialog.setCancelable(false);
+        mDialog.setMessage("Subiendo foto...");
+        String proveedor = edtNombreEmpresa.getText().toString();
+        final StorageReference storage = FirebaseStorage.getInstance().getReference().child("Logos").child(proveedor+".jpg");
+        byte[] imageByte = CompressorBitmapImage.getImage(this,mImageFile.getPath(),500,500);
+        UploadTask uploadTask = storage.putBytes(imageByte);
+        uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if(task.isSuccessful()){
+                    storage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String image = uri.toString();
+                            photo = image;
+                            mDialog.dismiss();
+                        }
+                    });
+                }
+                else {
+                    Toasty.error(RegistroProveedor.this, "Error al subir imagen", Toast.LENGTH_SHORT,true).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == GALLERY_REQUEST && resultCode == RESULT_OK){
+            try {
+                mImageFile = FileUtil.from(this, data.getData());
+                photoLogo.setImageBitmap(BitmapFactory.decodeFile(mImageFile.getAbsolutePath()));
+                saveImage();
+            }catch(Exception e){
+                Log.d("error","Mensaje" + e.getMessage());
+            }
+        }
+
     }
 
     void logout() {

@@ -250,6 +250,7 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
             else {
                 Call<Products> call = api.getProductData(variationID);
                 final int finalK = k;
+                String prueba;
                 call.enqueue(new Callback<Products>() {
                     @Override
                     public void onResponse(Call<Products> call, Response<Products> response) {

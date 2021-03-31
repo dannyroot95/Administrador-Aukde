@@ -49,7 +49,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapReadyCallback {
 
 
-    TextView name , lastName , phone , email , address , status, sku ,
+    TextView name , lastName , phone , email , address , status, sku,sk1 ,
             productName , quantity , price , subtotal , total ,
             payMethod , aditional , priceAditional , payWith;
 
@@ -86,6 +86,7 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         address = findViewById(R.id.orderAddressClient);
         status = findViewById(R.id.orderStatusClient);
         sku = findViewById(R.id.lsSku);
+        sk1=findViewById(R.id.lsSku1);
         productName = findViewById(R.id.lsProduct);
         quantity = findViewById(R.id.lsQuantity);
         price = findViewById(R.id.lsPrice);
@@ -223,8 +224,8 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
                         productName.append(nameProduct+"\n");
                         ProductNameActual=productName.getText().toString();
                         String [] c = listSku.split("-");
-                        sku.append(c[0]+"\n");
-                        NombreLocal=sku.getText().toString();
+                        sk1.append(c[0]+"\n");
+                        NombreLocal=sk1.getText().toString();
                         String [] NombreLocalActual=NombreLocal.split("\n");
                         String [] RecursosLocal=res.getStringArray(R.array.negocios);
 
@@ -233,7 +234,7 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
                                 String [] x = RecursosLocal[i].split("-");
                                 String date=NombreL;
                                 if(date.equalsIgnoreCase(x[0])){
-                                    Toast.makeText(WoocommerceDetailOrder.this, "INFO"+x[0], Toast.LENGTH_SHORT).show();
+                                    sku.append(x[0]+"\n");
                                 }
                             }
                         }
@@ -260,6 +261,7 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
                         String value = response.body().getPrice();
                         String nameProduct = response.body().getName();
                         listSku = response.body().getSku();
+                        Resources res=getResources();
                         double valueDouble = Double.parseDouble(value);
                         int cant = Integer.parseInt(woo.getLine_items().get(finalK).getQuantity());
                         double sum = cant*valueDouble;
@@ -268,13 +270,19 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
                         productName.append(nameProduct+"\n");
                         ProductNameActual=productName.getText().toString();
                         String [] c = listSku.split("-");
-                        sku.append(c[0]+"\n");
-                        NombreLocal=sku.getText().toString();
+                        sk1.append(c[0]+"\n");
+                        NombreLocal=sk1.getText().toString();
                         String [] NombreLocalActual=NombreLocal.split("\n");
-                        for(String txt : NombreLocalActual){
-                            Toast.makeText(WoocommerceDetailOrder.this, "hola: "+txt, Toast.LENGTH_SHORT).show();
+                        String [] RecursosLocal=res.getStringArray(R.array.negocios);
+                        for(String NombreL : NombreLocalActual){
+                            for(int i = 0 ; i<RecursosLocal.length;i++){
+                                String [] x = RecursosLocal[i].split("-");
+                                String date=NombreL;
+                                if(date.equalsIgnoreCase(x[0])){
+                                    sku.append(x[0]+"\n");
+                                }
+                            }
                         }
-
                     }
 
                     @Override

@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,7 +31,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -202,6 +209,7 @@ public class DetalleSolicitudUsuarioProveedor extends AppCompatActivity {
                             mData.child(key).updateChildren(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    sendSMS();
                                     mDialog.dismiss();
                                     finish();
                                     Toasty.success(DetalleSolicitudUsuarioProveedor.this, "Usuario Creado!", Toast.LENGTH_SHORT).show();
@@ -232,6 +240,41 @@ public class DetalleSolicitudUsuarioProveedor extends AppCompatActivity {
         }
         else {
             btnUpdate.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void sendSMS(){
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                ThreadSMS();
+            }
+        });
+    }
+
+    private void ThreadSMS(){
+        String phone = mobile.getText().toString();
+        OkHttpClient client = new OkHttpClient();
+        MediaType mediaType = MediaType.parse("application/json");
+
+        String content = "{\"messages\": [{\"source\": \"mashape\",\"from\": \"Test\",\"body\": \"Su cuenta en AUKDE ha sido Activada!\",\"to\": \"+51"+phone+"\",\"schedule\": \"1452244637\",\"custom_string\": \"Su cuenta en AUKDE ha sido Activada!\" }]}";
+        RequestBody body = RequestBody.create(mediaType, content);
+
+    Request request = new Request.Builder()
+            .url("https://clicksend.p.rapidapi.com/sms/send")
+            .post(body)
+            .addHeader("content-type", "application/json")
+            .addHeader("authorization", "Basic Y29udGFjdG9AY29uZXhmaW4ub3JnOkZpbmFuemFzaW50ZWxpZ2VudGVzMTArKg==")
+            .addHeader("x-rapidapi-key", "a79f8e5c23mshc421c059f1161bfp1c0b26jsn40bee7f91d53")
+            .addHeader("x-rapidapi-host", "clicksend.p.rapidapi.com")
+            .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            Toast.makeText(this, "SMS enviado!", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Toast.makeText(this, "ERROR!", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
     }
 

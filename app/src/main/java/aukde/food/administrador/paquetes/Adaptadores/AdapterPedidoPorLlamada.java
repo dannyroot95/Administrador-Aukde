@@ -114,10 +114,7 @@ public class AdapterPedidoPorLlamada extends RecyclerView.Adapter<AdapterPedidoP
                     v.getContext().startActivity(intent);
                 }
             });
-
     }
-
-
 
     @Override
     public int getItemCount() {
@@ -134,7 +131,6 @@ public class AdapterPedidoPorLlamada extends RecyclerView.Adapter<AdapterPedidoP
                , txtRepartidor , txtProveedor , txtProductos , txtProductDescripcion , txtLatitud , txtLongitud
                , txtPreciosUnitarios , txtCantidad , txtPrecioTotalXproducto , txtComision ,
                txtTotalDelivery ,txtGananciaDelivery,txtGananciaComision;
-
 
         LinearLayout line,LinearPedidos;
 

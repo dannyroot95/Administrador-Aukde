@@ -775,6 +775,7 @@
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_weight="1"
+                        android:id="@+id/prueba2"
                         android:textColor="#fff"
                         android:fontFamily="@font/futura"
                         android:text="Asignar repartidor"

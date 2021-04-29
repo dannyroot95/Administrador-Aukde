@@ -1,7 +1,7 @@
 package aukde.food.administrador.paquetes.Actividades.Pedidos;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NavUtils;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -24,16 +24,24 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import aukde.food.administrador.R;
 import aukde.food.administrador.paquetes.Inclusiones.MiToolbar;
-import aukde.food.administrador.paquetes.Modelos.PedidoLlamada;
 import aukde.food.administrador.paquetes.ModelsWoocommerce.Products;
 import aukde.food.administrador.paquetes.ModelsWoocommerce.Woocommerce;
 import aukde.food.administrador.paquetes.Retrofit.WoocommerceAPI;
@@ -51,6 +59,8 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
             productName , quantity , price , subtotal , total ,
             payMethod , aditional , priceAditional , payWith;
 
+    String [] negocios;
+
     String id;
     EditText shipping;
     ImageView methodPayIMG;
@@ -60,14 +70,18 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
     private GoogleMap mMap;
     double latitude ;
     double longitude ;
-    String [] negocios ;
+
     String listSku = "";
     LinearLayout linear;
     int idProduct;
     int variationID;
     String variation = "";
     WoocommerceAPI api;
-    Button btnSend;
+    Button btnSend , btnEquals;
+
+    DatabaseReference mReference;
+    String business;
+    String [] resourceBusiness;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -75,6 +89,8 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         setTheme(R.style.AppThemeDark);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_woocommerce_detail_order);
+        mReference = FirebaseDatabase.getInstance().getReference().child("Orders");
+        negocios = getResources().getStringArray(R.array.negocios);
         name = findViewById(R.id.orderNameClient);
         lastName = findViewById(R.id.orderLastNameClient);
         phone = findViewById(R.id.orderPhoneClient);
@@ -95,9 +111,9 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         aditional = findViewById(R.id.lsProductAditional);
         priceAditional = findViewById(R.id.lsPriceAditional);
         btnSend = findViewById(R.id.prueba);
+        btnEquals = findViewById(R.id.prueba2);
         geocoder = new Geocoder(this);
-
-        negocios = getResources().getStringArray(R.array.negocios);
+        resourceBusiness = getResources().getStringArray(R.array.negocios);
 
         Gson gson = new GsonBuilder().serializeNulls().create();
         Retrofit retrofit = new Retrofit.Builder()
@@ -218,12 +234,21 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
                         productName.append(nameProduct+"\n");
                         String [] c = listSku.split("-");
                         sku.append(c[0]+"\n");
-
+                        business = sku.getText().toString();
+                        String [] currentBusiness = business.split("\n");
+                        sku.setText("");
+                        for(String name : currentBusiness){
+                            for (String s : resourceBusiness) {
+                                String[] x = s.split("-");
+                                if (name.equalsIgnoreCase(x[0])) {
+                                    sku.append(x[1] + "\n");
+                                }
+                            }
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<Products> call, Throwable t) {
-
                     }
                 });
             }
@@ -250,18 +275,24 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
 
                         String [] c = listSku.split("-");
                         sku.append(c[0]+"\n");
-
+                        String [] currentBusiness= business.split("\n");
+                        sku.setText("");
+                        for(String name : currentBusiness){
+                            for(String s : resourceBusiness) {
+                                String[] x = s.split("-");
+                                if (name.equalsIgnoreCase(x[0])) {
+                                    sku.append(x[1] + "\n");
+                                }
+                            }
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<Products> call, Throwable t) {
-
                     }
                 });
             }
-
         }
-
 
         shipping.setText(woo.getShipping_total());
         if (shipping.getText().toString().equals("")){
@@ -275,12 +306,16 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                allBusiness();
+                //allBusiness();
+                searchBusinessID();
             }
         });
-
-
-
+        btnEquals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              equalsx();
+            }
+        });
     }
 
     @Override
@@ -318,7 +353,6 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
             status.setText("Completado");
             status.setTextColor(Color.parseColor("#5bbd00"));
         }
-
     }
 
     private void checkPayImage(){
@@ -356,14 +390,56 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         }
     }
 
-    private void allBusiness(){
-
-        String code = sku.getText().toString();
-        String[] skCode = code.split("\\n");
-        for(int i=0 ; i<negocios.length ; i++){
-            Toast.makeText(this, negocios[i], Toast.LENGTH_SHORT).show();
+    private void equalsx(){
+        String business = "Aukde\nCoco Ice Cream\nAukde\n";
+        String [] val = business.split("\\n");
+        for (int i = 0 ; i<sku.length(); i++){
+            for(int j = 0 ; j<sku.length(); j++){
+               if(val[i].equals(val[j])){
+                   Toast.makeText(this, val[i]+" es igual a : " + val[j], Toast.LENGTH_SHORT).show();
+               }
+            }
         }
+    }
 
+    private void searchBusinessID(){
+        //String business = "Aukde\nCoco Ice Cream\nQ' Tal Concha\n";
+        String business = "Aukde\nCoco Ice Cream\n";
+        String [] val = business.split("\\n");
+        final String [] valProduct = productName.getText().toString().split("\\n");
+
+        for(int i = 0 ; i<val.length; i++) {
+
+            Query reference = FirebaseDatabase.getInstance().getReference()
+                    .child("Usuarios")
+                    .child("Proveedor")
+                    .orderByChild("nombre empresa")
+                    .equalTo(val[i]);
+
+            final int tempI = i;
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        String key = ds.getKey();
+                        //aditional.append(key+"\n");
+                        Map<String , Object> map = new HashMap<>();
+                        map.put("numOrder",id);
+                        map.put("name",name.getText().toString());
+                        map.put("lastName",lastName.getText().toString());
+                        map.put("status",status.getText().toString());
+                        map.put("phone",phone.getText().toString());
+                        map.put("product",valProduct[tempI]+"\n");
+                        mReference.child(Objects.requireNonNull(key)).child(id).updateChildren(map);
+                    }
+                    Toasty.success(WoocommerceDetailOrder.this, "Exito!", Toast.LENGTH_SHORT).show();
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(WoocommerceDetailOrder.this, "Server error", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
 
@@ -373,13 +449,11 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         mapView.onResume();
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
         mapView.onStart();
     }
-
 
     @Override
     protected void onStop() {
@@ -404,6 +478,4 @@ public class WoocommerceDetailOrder extends AppCompatActivity implements OnMapRe
         super.onLowMemory();
         mapView.onLowMemory();
     }
-
-
 }

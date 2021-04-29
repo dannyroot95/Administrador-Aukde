@@ -242,6 +242,46 @@
                 android:layout_rowWeight="1"
                 android:foreground="@drawable/itemback"
                 android:clickable="true"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="12dp"
+                android:id="@+id/btnListaDeSocios"
+                android:layout_margin="12dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left">
+
+                    <Button
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:clickable="false"
+                        android:background="@drawable/ic_store"
+                        android:layout_height="80dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="Lista de Socios"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="#fff"
+                        android:fontFamily="@font/futura"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:foreground="@drawable/itemback"
+                android:clickable="true"
                 app:cardBackgroundColor="@android:color/transparent"
                 app:cardElevation="6dp"
                 android:id="@+id/btnRegUsers"
@@ -552,7 +592,7 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:text="Mapa de Proveedores"
+                        android:text="Mapa de Socios"
                         android:textSize="16sp"
                         android:gravity="center"
                         android:textColor="#fff"

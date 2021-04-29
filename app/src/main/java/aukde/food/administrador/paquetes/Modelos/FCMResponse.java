@@ -2,6 +2,7 @@ package aukde.food.administrador.paquetes.Modelos;
 import java.util.ArrayList;
 
 public class FCMResponse {
+
     private long multicast_id;
     private int success;
     private int failure;

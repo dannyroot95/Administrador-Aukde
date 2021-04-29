@@ -56,6 +56,7 @@ import aukde.food.administrador.paquetes.Actividades.Pedidos.RealizarPedido;
 import aukde.food.administrador.paquetes.Actividades.Pedidos.SolicitarProducto;
 import aukde.food.administrador.paquetes.Actividades.Pedidos.WooOrders;
 import aukde.food.administrador.paquetes.Actividades.Registros.MenuRegistros;
+import aukde.food.administrador.paquetes.Actividades.Usuarios.ListaSolicitudUsuarioProveedor;
 import aukde.food.administrador.paquetes.Mapas.MapaProveedores;
 import aukde.food.administrador.paquetes.Mapas.MonitoreoRepartidor;
 import aukde.food.administrador.paquetes.Menus.Perfiles.Cronometro;
@@ -80,7 +81,7 @@ public class MenuAdmin extends AppCompatActivity implements PopupMenu.OnMenuItem
     SharedPreferences mSharedPreference;
     private CardView btnHacerPedido , btnRegistrarUsuarios , btnListaPedidos
             , btnMapaRepartidores , btnPerfilX , btnMapProveedor , btnFinanza , btnListaSolicitudes,
-            btnSolicitudDeProducto , mBtnListaSolicitudProucto , btnPedidos;
+            btnSolicitudDeProducto , mBtnListaSolicitudProucto , btnPedidos , btnSolicitudUsuarioProveedor;
     private TextView Txtnombres , Txtapellidos;
     private ShimmerFrameLayout shimmerFrameLayout;
     private LinearLayout LinearShimmer;
@@ -124,6 +125,7 @@ public class MenuAdmin extends AppCompatActivity implements PopupMenu.OnMenuItem
         btnListaSolicitudes = findViewById(R.id.btnListaSolicitudesAdmin);
         btnSolicitudDeProducto = findViewById(R.id.btnSolicitudProductoAdmin);
         mBtnListaSolicitudProucto = findViewById(R.id.btnListaSolicitudProducto);
+        btnSolicitudUsuarioProveedor = findViewById(R.id.btnListaDeSocios);
         btnPedidos = findViewById(R.id.btnPedidos);
         btnPerfilX = findViewById(R.id.btnPerfil);
         Txtnombres = findViewById(R.id.txtNombres);
@@ -254,6 +256,18 @@ public class MenuAdmin extends AppCompatActivity implements PopupMenu.OnMenuItem
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MenuAdmin.this, OrderListWoocommerce.class));
+            }
+        });
+
+        btnSolicitudUsuarioProveedor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vibrator.vibrate(tiempo);
+                mDialog.show();
+                mDialog.setCancelable(false);
+                mDialog.setMessage("Cargando...");
+                startActivity(new Intent(MenuAdmin.this, ListaSolicitudUsuarioProveedor.class));
+                finish();
             }
         });
 

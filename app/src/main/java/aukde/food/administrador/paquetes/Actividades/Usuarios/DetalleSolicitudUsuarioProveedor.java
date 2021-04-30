@@ -104,6 +104,8 @@ public class DetalleSolicitudUsuarioProveedor extends AppCompatActivity {
         data.add(provider.getDelivery());
         data.add(provider.getPassword());
         profile = provider.getProfileCompleted();
+        lat = provider.getLatitude();
+        lon = provider.getLongitude();
 
         verifyButton();
 
@@ -197,7 +199,7 @@ public class DetalleSolicitudUsuarioProveedor extends AppCompatActivity {
                             negocio.getText().toString(),
                             "provider",
                             direccion.getText().toString(),
-                            0.0,0.0,"",1
+                            lat,lon,"",1
                     );
 
                     db.collection("users").document(proveedor.getId()).set(proveedor, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener() {

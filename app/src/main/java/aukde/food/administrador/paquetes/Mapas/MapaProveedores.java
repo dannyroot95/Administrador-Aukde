@@ -115,7 +115,7 @@ public class MapaProveedores extends AppCompatActivity implements OnMapReadyCall
         mGeofireProviderProveedor.getProveedores(mCurrentLatLng, 100).addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(final String key, final GeoLocation location) {
-                // AÑADIREMOS LOS MARCADORES DE LOS CONDUCTORES QUE SE CONECTEN EN LA APLICACION
+                // AÑADIREMOS LOS MARCADORES DE LOS LOCALES QUE SE CONECTEN EN LA APLICACION
 
                 for (Marker marker : mProveedorMarkers) {
                     if (marker.getTag() != null) {

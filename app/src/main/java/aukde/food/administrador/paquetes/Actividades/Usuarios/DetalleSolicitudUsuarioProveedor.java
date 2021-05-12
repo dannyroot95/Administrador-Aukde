@@ -63,12 +63,12 @@ public class DetalleSolicitudUsuarioProveedor extends AppCompatActivity {
    DatabaseReference mData = FirebaseDatabase.getInstance().getReference().child("SolicitudSocio");
    int profile;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppThemeDark);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solicitud_usuario_proveedor);
-
         mDialog = new ProgressDialog(this,R.style.ThemeOverlay);
         name = findViewById(R.id.et_first_name);
         lastName = findViewById(R.id.et_last_name);

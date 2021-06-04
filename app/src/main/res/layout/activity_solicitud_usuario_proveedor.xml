@@ -156,6 +156,26 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+      <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/til_sku"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="SKU"
+          android:layout_marginTop="15dp"
+          android:textColorHint="#A5A5A5">
+
+          <EditText
+              android:id="@+id/et_sku"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:inputType="text"
+              android:textColor="#000"
+              android:autofillHints=""
+              tools:ignore="LabelFor" />
+
+      </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_address"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

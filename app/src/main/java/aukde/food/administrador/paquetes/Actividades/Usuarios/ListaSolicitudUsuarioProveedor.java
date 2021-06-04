@@ -96,7 +96,6 @@ public class ListaSolicitudUsuarioProveedor extends AppCompatActivity {
                 return true;
             }
         });
-
     }
 
     private void buscar(String texto) {

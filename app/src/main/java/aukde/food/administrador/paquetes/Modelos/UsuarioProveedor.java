@@ -22,14 +22,15 @@ public class UsuarioProveedor implements Serializable {
     Double longitude = 0.0;
     String image;
     int profileCompleted = 0;
+    String sku;
 
 
     public UsuarioProveedor(){}
 
     public UsuarioProveedor(String id, String firstName, String lastName, String dni, Long mobile,
                             String ruc, String gender, String email, String password, String type_product,
-                            String delivery, String name_store, String type_user, String address,
-                            Double latitude, Double longitude, String image, int profileCompleted) {
+                            String delivery, String name_store, String type_user, String address, Double latitude,
+                            Double longitude, String image, int profileCompleted, String sku) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -48,7 +49,10 @@ public class UsuarioProveedor implements Serializable {
         this.longitude = longitude;
         this.image = image;
         this.profileCompleted = profileCompleted;
+        this.sku = sku;
+
     }
+
 
     public String getId() {
         return id;
@@ -192,5 +196,13 @@ public class UsuarioProveedor implements Serializable {
 
     public void setProfileCompleted(int profileCompleted) {
         this.profileCompleted = profileCompleted;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 }
